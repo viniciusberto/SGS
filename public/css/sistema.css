@@ -4,12 +4,14 @@ body {
 
 #wrapper {
     width: 100%;
+    background: #353535;
 }
 
 #page-wrapper {
     padding: 0 15px;
     min-height: 568px;
     background-color: white;
+    min-height: 100vh;
 }
 
 @media (min-width: 768px) {

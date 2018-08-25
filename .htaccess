@@ -1,4 +1,5 @@
 RewriteEngine on
+#RewriteCond %{REQUEST_URI} !^public/site
+#RewriteRule ^(.*)$ public/site/$1
 RewriteCond %{REQUEST_URI} !^public
-
 RewriteRule ^(.*)$ public/$1 [L]

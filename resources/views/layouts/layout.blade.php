@@ -39,8 +39,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand link-layout" href="{{ route('dashboard.index') }}"><img class="logo"
-                                                                                           src="/imagens/logo.png"></a>
+            <a class="navbar-brand link-layout" href="{{ route('dashboard.index') }}">
+                <img class="logo" src="/imagens/logo.png">
+            </a>
         </div>
 
 
