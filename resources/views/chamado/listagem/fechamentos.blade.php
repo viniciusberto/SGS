@@ -195,15 +195,13 @@
                                         <div class="col-md-12 sem-padding">
                                             <p>
                                                 <label>Problema Real: </label>
-                                                <input class="form-control" type="text"
-                                                       value="{{$chamado->problema}}"
-                                                       required disabled>
+                                                <textarea class="form-control" required
+                                                          disabled>{{$chamado->problema}}</textarea>
                                             </p>
                                             <p>
                                                 <label>Solução: </label>
-                                                <input class="form-control" type="text"
-                                                       value="{{$chamado->solucao}}"
-                                                       required disabled>
+                                                <textarea class="form-control" required
+                                                          disabled>{{$chamado->solucao}}</textarea>
                                             </p>
                                         </div>
 

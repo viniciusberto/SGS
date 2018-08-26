@@ -1,0 +1,56 @@
+.page-header-comand {
+    border-radius: 0;
+    padding: 2px;
+}
+
+.table-header, .table-footer {
+    background: #555555;
+    color: white;
+}
+
+.table-body .table-item-actions {
+    visibility: hidden;
+    /*display: none;*/
+}
+
+a.featured {
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.table-body .table-item-actions .edit,
+.table-body .table-item-actions .trash,
+.table-body .table-item-actions .details {
+    font-size: 12px;
+}
+
+.table-body .table-item-actions .trash a {
+    color: #904338;
+}
+
+.table-body .table-item-actions .details a {
+    color: #449D44;
+}
+
+.table-body .table-item-actions .edit a,
+.table-body .table-item-actions .trash a,
+.table-body .table-item-actions .details a {
+    text-decoration: none;
+}
+
+.table-body tr:hover .table-item-actions {
+    visibility: visible;
+}
+
+a.ordened {
+    color: #A8CF45;
+    text-decoration: none;
+}
+
+a.ordened .asc {
+    visibility: hidden;
+}
+
+.ordenator:hover a.ordened .asc {
+    visibility: visible;
+}

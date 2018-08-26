@@ -5,19 +5,49 @@ namespace App\Http\Controllers;
 use App\Empresa;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
-    public function index()
+    public function index($orderBy = null, $order = null)
     {
-        $usuarios = User::all();
-        $usuarios->each(function ($item, $index) {
-            $item->setAttribute('empresa', Empresa::find($item->empresa_id));
-            $item->setAttribute('tipoTexto', User::verificarTipo($item->tipo));
-        });
+        if (isset($order) && isset($orderBy)) {
+            $usuarios = DB::table('users')
+                ->join('empresas', 'users.empresa_id', '=', 'empresas.id')
+                ->select('users.id', 'users.name', 'empresas.nome as empresa', 'users.tipo', 'users.email')->orderBy($orderBy, $order)->get()->toArray();
+        } else {
+            $usuarios = DB::table('users')
+                ->join('empresas', 'users.empresa_id', '=', 'empresas.id')
+                ->select('users.id', 'users.name', 'empresas.nome as empresa', 'users.tipo', 'users.email')->get()->toArray();
+        }
 
-        return view('usuario.listar', ['usuarios' => $usuarios]);
+        foreach ($usuarios as $key => $usuario) {
+            $usuario->tipo = User::verificarTipo($usuario->tipo);
+            $usuarios[$key] = (Array)$usuario;
+        }
+
+        $table = array(
+            'thead' => ['#', 'name' => 'Nome', 'empresa_id' => 'Empresa', 'tipo' => 'Tipo', 'E-Mail'],
+            'tbody' => $usuarios,
+            'actions' => [
+                'edit' => 'Editar',
+                'trash' => 'Excluir'
+            ],
+            'tfoot' => ['#', 'name' => 'Nome', 'empresa_id' => 'Empresa', 'tipo' => 'Tipo', 'E-Mail'],
+        );
+
+
+        return view('listar', [
+            'title' => 'Usuários',
+            'action' => 'Adicionar Novo',
+            'route' => 'usuario',
+            'order' => [
+                'orderby' => $orderBy,
+                'order' => $order
+            ],
+            'table' => $table,
+        ]);
     }
 
     public function create()

@@ -22,11 +22,12 @@
     <link rel="shortcut icon" href="/favicon.png"/>
     <!-- Custom CSS -->
     <link href="/css/sistema.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/personalizado.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <title>Sistema HávilaInfo - @yield('title')</title>
 </head>
 
-<body>
+<body onLoad="configPage();">
 
 <div id="wrapper">
 
@@ -165,7 +166,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">@yield('title')</h1>
+                    <h1 class="page-header">@yield('title') @yield('header-commands')</h1>
                     <div class="row">
                         <div class="col-md-12 alertas">
                             @if (session('status'))

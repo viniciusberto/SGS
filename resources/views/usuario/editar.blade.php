@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-    Cadastrar Usuário
+    Editar Usuário
 @stop
 
 @section('content')

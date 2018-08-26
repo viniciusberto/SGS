@@ -6,7 +6,7 @@ Login
 @stop
 
 @section('content')
-<div class="container">
+<div class="container" style="min-height: calc(100vh - 51px)!important;">
     <div class="card centro col-md-4">
         <div class="card-body">
             <img class="img-login img-responsive" src="/imagens/logo.png">

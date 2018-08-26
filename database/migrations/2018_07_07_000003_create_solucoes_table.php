@@ -24,7 +24,7 @@ class CreateSolucoesTable extends Migration
         Schema::create($this->set_schema_table, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('descricao', 45)->nullable()->default(null);
+            $table->string('descricao', 1024)->nullable()->default(null);
             $table->nullableTimestamps();
         });
     }

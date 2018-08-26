@@ -33,7 +33,7 @@ class CreateItensConfiguracaoTable extends Migration
 
             $table->foreign('empresa_id', 'fk_itens_configuracao_empresas1_idx')
                 ->references('id')->on('empresas')
-                ->onDelete('no action')
+                ->onDelete('cascade')
                 ->onUpdate('no action');
         });
     }

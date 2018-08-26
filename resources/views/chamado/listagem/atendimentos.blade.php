@@ -193,18 +193,15 @@
                                         <div class="col-md-12 sem-padding">
                                             <p>
                                                 <label>Problema Real: </label>
-                                                <input value="{{$chamado->problema}}" name="problema"
-                                                       class="form-control" type="text" required {{$ativo}}>
+                                                <textarea name="problema" class="form-control" required {{$ativo}}>{{$chamado->problema}}</textarea>
                                             </p>
                                             <p>
                                                 <label>Solução: </label>
-                                                <input value="{{$chamado->solucao}}" name="solucao" class="form-control"
-                                                       type="text" required {{$ativo}}>
+                                                <textarea name="solucao" class="form-control" required {{$ativo}}>{{$chamado->solucao}}</textarea>
                                             </p>
                                         </div>
-
-
                                     </div>
+
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Voltar
                                         </button>
