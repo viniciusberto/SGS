@@ -32,6 +32,7 @@ Route::middleware(['auth'])->prefix('/admin')->group(function () {
 
     Route::resource('prioridade', 'PrioridadeController');
     Route::get('prioridade/destroy2/{id}', 'PrioridadeController@destroy')->name('prioridade.destroy2');
+    Route::get('prioridade/{orderby}/{order}', 'PrioridadeController@index')->name('prioridade.order');
 
     Route::resource('empresa', 'EmpresaController');
     Route::get('empresa/destroy2/{id}', 'EmpresaController@destroy')->name('empresa.destroy2');
@@ -43,8 +44,12 @@ Route::middleware(['auth'])->prefix('/admin')->group(function () {
 
     Route::resource('dispositivo', 'DispositivoController');
     Route::get('dispositivo/destroy2/{id}', 'DispositivoController@destroy')->name('dispositivo.destroy2');
+    Route::get('dispositivo/order/{orderby}/{order}', 'DispositivoController@index')->name('dispositivo.order');
+
     Route::resource('produto', 'ProdutoController');
     Route::get('produto/destroy2/{id}', 'ProdutoController@destroy')->name('produto.destroy2');
+    Route::get('produto/order/{orderby}/{order}', 'ProdutoController@index')->name('produto.order');
+
     Route::resource('chamado', 'ChamadoController');
     Route::get('chamado/destroy2/{id}', 'ChamadoController@destroy')->name('chamado.destroy2');
     Route::get('chamado/listar/{status}', 'ChamadoController@listar')->name('chamado.listar');

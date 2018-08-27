@@ -36,9 +36,9 @@
             <tbody class="table-body">
             @forelse($table['tbody'] as $tr)
                 <tr>
-                    @foreach($tr as $cell)
+                    @foreach($tr as $key => $cell)
                         @if(!is_array($cell))
-                            <td @if($loop->first) hidden @endif>
+                            <td @if($loop->first) hidden @endif  @if($key == 'telefone' || $key == 'cnpj')class="sem-quebra" @endif>
                                 @if($loop->iteration == 2 and isset($route))
                                     <a class="featured" href="{{route($route.'.edit',[$tr['id']])}}">{{$cell}}</a>
                                     @if(isset($table['actions']))
@@ -76,36 +76,44 @@
                                         </div>
                                         <div class="modal-body">
                                             @foreach($tr['modal']['data'] as $data)
+
                                                 <p><b>{{$data['title']}}:</b></p>
-                                                <div class="d-table">
-                                                    <div class="thead-dark">
-                                                        <div class="d-table-row">
+                                                <div class="modal-table" count="{{count($data['thead'])-1}}">
+                                                    <div class="mt-thead">
+                                                        <div class="mt-row">
                                                             @foreach($data['thead'] as $mthead)
                                                                 @if(!$loop->first)
-                                                                    <span class="d-table-cell">
+                                                                    <div class="mt-col">
                                                                         {{$mthead}}
-                                                                    </span>
+                                                                    </div>
                                                                 @endif
                                                             @endforeach
                                                         </div>
                                                     </div>
-                                                    <div class="table-body">
-                                                        <div class="d-table-row">
-                                                            @foreach($data['tbody'] as $mtbody)
-                                                                @if(!$loop->first)
-                                                                    <span class="d-table-cell">
-                                                                        {{$mtbody['name']}}
-                                                                    </span>
-                                                                @endif
-                                                            @endforeach
-                                                        </div>
+                                                    <div class="mt-tbody">
+                                                        @foreach($data['tbody'] as $mtbody)
+                                                            <div class="mt-row">
+                                                                @foreach($mtbody as $mtbodycell)
+                                                                    @if($loop->iteration == 2)
+                                                                        <div class="mt-col">
+                                                                            <a class="featured" href="{{route($data['route'].'.edit',[$tr['id']])}}">{{$mtbodycell}}</a>
+                                                                        </div>
+                                                                    @elseif(!$loop->first)
+                                                                        <div class="mt-col">
+                                                                        {{$mtbodycell}}
+                                                                    </div>
+                                                                    @endif
+                                                                @endforeach
+
+                                                            </div>
+                                                        @endforeach
                                                     </div>
-                                                    <div class="table-footer">
-                                                        <div class="d-table-row">
+                                                    <div class="mt-tfoot">
+                                                        <div class="mt-row">
                                                             @if(isset($data['tfoot']))
                                                                 @foreach($data['tfoot'] as $mtfoot)
                                                                     @if(!$loop->first)
-                                                                        <div class="d-table-cell">
+                                                                        <div class="mt-col">
                                                                             {{$mtfoot}}
                                                                         </div>
                                                                     @endif
@@ -113,7 +121,7 @@
                                                             @else
                                                                 @foreach($data['thead'] as $mthead)
                                                                     @if(!$loop->first)
-                                                                        <span class="d-table-cell">
+                                                                        <span class="mt-col">
                                                                         {{$mthead}}
                                                                     </span>
                                                                     @endif
@@ -136,7 +144,7 @@
                                             @endforeach
                                         </div>
                                         <div class="modal-footer">
-                                            <a class="btn btn-danger excluir" href="#">Excluir</a>
+                                            <a class="btn btn-danger excluir" action="{{route($route.'.destroy2',[$tr['id']])}}" href="#">Excluir</a>
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Fechar
                                             </button>
                                         </div>
@@ -190,10 +198,20 @@
     <script>
         function configPage() {
             $('.excluir').on('click', function () {
-                if (confirm('Tem certeza que deseja excluir esta empresa?\n\nQuando você exclui uma emresa, exclui também\ntodo seu histórico e itens vinculados a ela.')) {
-
+                // if (confirm('Tem certeza que deseja excluir esta empresa?\n\nQuando você exclui uma empresa, exclui também\ntodo seu histórico e itens vinculados a ela.')) {
+                //     window.location = $(this).attr('action');
+                // }
+                if (confirm('Tem certeza que deseja excluir?')) {
+                    window.location = $(this).attr('action');
                 }
             });
+
+            var width = parseInt($('.modal-table').attr('count'));
+            width = 100/width;
+
+            $('.modal-table .mt-col').css(
+                'width', width+'%'
+            );
 
             $('.table-item-actions .trash a').on('click', function () {
                 if (confirm('Tem certeza que deseja excluir?')) {

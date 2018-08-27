@@ -54,3 +54,46 @@ a.ordened .asc {
 .ordenator:hover a.ordened .asc {
     visibility: visible;
 }
+
+.modal-table {
+    display: table;
+    width: 100%;
+}
+
+.modal-table .mt-thead,
+.modal-table .mt-tbody,
+.modal-table .mt-tfoot {
+    display: block;
+    width: 100%;
+}
+
+.modal-table .mt-thead,
+.modal-table .mt-tfoot{
+    background: #555555;
+    color: white;
+    font-weight: 600;
+}
+.modal-table .mt-thead .mt-row .mt-col:first-child {
+    /*background: red;*/
+}
+
+.modal-table .mt-row:first-child {
+    border-top: 1px solid #ddd;
+}
+.modal-table .mt-row {
+    display: inline-flex;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+}
+
+.modal-table .mt-col:last-child{
+    border-right: 1px solid #ddd;
+}
+.modal-table .mt-col {
+    display: table-cell;
+    padding: 8px;
+    border-left: 1px solid #ddd;
+}
+.sem-quebra{
+    white-space: nowrap;
+}

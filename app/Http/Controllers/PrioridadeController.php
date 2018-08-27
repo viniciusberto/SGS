@@ -6,26 +6,77 @@ use App\Sla;
 use App\Prioridade;
 use App\PrioridadesSla;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PrioridadeController extends Controller
 {
-    public function index()
+    public function index($orderBy = null, $order = null)
     {
-        $prioridades = Prioridade::all();
+        if (isset($order) && isset($orderBy)) {
+            $prioridades = DB::table('prioridades')->select('*')->orderBy($orderBy, $order)->get()->toArray();
+        } else {
+            $prioridades = Prioridade::all();
+        }
+
+        $temp = [];
         foreach ($prioridades as $prioridade) {
             $prioridadesSla = PrioridadesSla::where('prioridade_id', $prioridade->id)->get();
             $slas = [];
             foreach ($prioridadesSla as $item):
                 $slas[] = $item->sla_id;
             endforeach;
+            $slas = Sla::whereIn('id', $slas)->get()->toArray();
 
-            $slas = Sla::whereIn('id', $slas)->get();
-            $prioridade->setAttribute('slas', $slas);
+            foreach ($slas as $key => $sla) {
+                unset($sla['created_at']);
+                unset($sla['updated_at']);
+                $slas[$key] = $sla;
+            }
 
+            $tempp['id'] = $prioridade->id;
+            $tempp['descricao'] = $prioridade->descricao;
+            $tempp['tempo_atendimento'] = $prioridade->tempo_atendimento;
+            $tempp['tempo_resolucao'] = $prioridade->tempo_resolucao;
+
+
+            $modal = array(
+                'title' => 'Detalhes da Prioridade ' . $prioridade->descricao,
+                'data' => [
+                    [
+                        'title' => 'SLA\'s com esta prioridade',
+                        'thead' => ['id', 'Nome'],
+                        'tbody' => $slas,
+                        'route' => 'sla'
+                    ]],
+                'buttons' => ['back' => 'Fechar', 'exclude' => 'Excluir']
+            );
+            $tempp['modal'] = $modal;
+            $temp[] = $tempp;
         }
-        return view('prioridade.listar', [
-            'prioridades' => $prioridades,
+
+        $table = array(
+            'thead' => ['#', 'descricao' => 'Descrição', 'Tempo de Atendimento', 'Tempo de Resolução'],
+            'tbody' => $temp,
+            'actions' => [
+                'edit' => 'Editar',
+                'trash' => 'Excluir'
+            ],
+            'tfoot' => ['#', 'descricao' => 'Descrição', 'Tempo de Atendimento', 'Tempo de Resolução'],
+        );
+
+
+        return view('listar', [
+            'title' => 'Prioridades',
+            'action' => 'Adicionar Nova',
+            'route' => 'prioridade',
+            'order' => [
+                'orderby' => $orderBy,
+                'order' => $order
+            ],
+            'table' => $table,
         ]);
+
+
     }
 
     public function create()
@@ -40,17 +91,17 @@ class PrioridadeController extends Controller
         $tempo_resolucao = intval($request->input('tempo_resolucao'));
 
         $prioridade = new Prioridade();
-        $prioridade->setAttribute('descricao',$descricao);
-        $prioridade->setAttribute('tempo_atendimento',$tempo_atendimento);
-        $prioridade->setAttribute('tempo_resolucao',$tempo_resolucao);
+        $prioridade->setAttribute('descricao', $descricao);
+        $prioridade->setAttribute('tempo_atendimento', $tempo_atendimento);
+        $prioridade->setAttribute('tempo_resolucao', $tempo_resolucao);
         $prioridade->save();
 
-        return redirect()->route('prioridade.index')->with('status','Cadastrado com sucesso!');
+        return redirect()->route('prioridade.index')->with('status', 'Cadastrado com sucesso!');
     }
 
     public function edit(Prioridade $prioridade)
     {
-        return view('prioridade.editar',['prioridade' => $prioridade]);
+        return view('prioridade.editar', ['prioridade' => $prioridade]);
     }
 
     public function update(Request $request, Prioridade $prioridade)
@@ -59,12 +110,12 @@ class PrioridadeController extends Controller
         $tempo_atendimento = intval($request->input('tempo_atendimento'));
         $tempo_resolucao = intval($request->input('tempo_resolucao'));
 
-        $prioridade->setAttribute('descricao',$descricao);
-        $prioridade->setAttribute('tempo_atendimento',$tempo_atendimento);
-        $prioridade->setAttribute('tempo_resolucao',$tempo_resolucao);
+        $prioridade->setAttribute('descricao', $descricao);
+        $prioridade->setAttribute('tempo_atendimento', $tempo_atendimento);
+        $prioridade->setAttribute('tempo_resolucao', $tempo_resolucao);
         $prioridade->save();
 
-        return redirect()->route('prioridade.index')->with('status','Atualizado com sucesso!');
+        return redirect()->route('prioridade.index')->with('status', 'Atualizado com sucesso!');
     }
 
     public function destroy($id)

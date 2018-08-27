@@ -28,7 +28,7 @@ class SlaController extends Controller
                 ->where([
                     ['prioridades_slas.sla_id', '=', $sla->id]
                 ])
-                ->select('prioridades.id', 'prioridades.descricao as name')->get()->toArray();
+                ->select('prioridades.id', 'prioridades.descricao as name', 'prioridades.tempo_atendimento', 'prioridades.tempo_resolucao')->get()->toArray();
             foreach ($prioridades as $chave => $prioridade) {
                 $prioridades[$chave] = (Array)$prioridade;
             }
@@ -42,7 +42,7 @@ class SlaController extends Controller
                 'data' => [
                     [
                         'title' => 'Prioridades',
-                        'thead' => ['id', 'Descricao'],
+                        'thead' => ['id', 'Descricao', 'Tempo Atendimento', 'Tempo Solução'],
                         'tbody' => $prioridades,
                         'route' => 'prioridade'
                     ]],
@@ -54,10 +54,10 @@ class SlaController extends Controller
         }
 
         $table = array(
-            'thead' => ['#', 'Nome'],
+            'thead' => ['#', 'nome' => 'Nome'],
             'tbody' => $slas,
             'actions' => ['edit' => 'Editar'],
-            'tfoot' => ['#', 'Nome'],
+            'tfoot' => ['#', 'nome' => 'Nome'],
         );
 
 

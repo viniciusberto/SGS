@@ -29,7 +29,7 @@ class EmpresaController extends Controller
                 'data' => [
                     [
                         'title' => 'Funcionários',
-                        'thead' => ['id', 'nome'],
+                        'thead' => ['id', 'Nome'],
                         'tbody' => $funcionarios,
                         'route' => 'usuario'
                     ]],

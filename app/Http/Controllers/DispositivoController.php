@@ -6,23 +6,57 @@ use App\Dispositivo;
 use App\Empresa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DispositivoController extends Controller
 {
-    public function index()
+    public function index($orderBy = null, $order = null)
     {
-        $dispositivos = Dispositivo::all()->sortBy('empresa_id');
-        $dispositivos->each(function ($item, $index){
-            $item->setAttribute('empresa', Empresa::find($item->empresa_id)->nome);
-        });
+        if (isset($order) && isset($orderBy)) {
+            $dispositivos = DB::table('itens_configuracao')
+                ->join('empresas', 'itens_configuracao.empresa_id', '=', 'empresas.id')
+                ->select('itens_configuracao.id', 'itens_configuracao.descricao', 'empresas.nome')->orderBy($orderBy, $order)->get()->toArray();
+        } else {
+            $dispositivos = DB::table('itens_configuracao')
+                ->join('empresas', 'itens_configuracao.empresa_id', '=', 'empresas.id')
+                ->select('itens_configuracao.id', 'itens_configuracao.descricao', 'empresas.nome')->get()->toArray();
+        }
 
-        return view('dispositivo.listar', ['dispositivos' => $dispositivos]);
+
+        foreach ($dispositivos as $key => $dispositivo){
+            $dispositivos[$key] = (Array)$dispositivo;
+        }
+
+
+
+        $table = array(
+            'thead' => ['#', 'descricao' => 'Descrição', 'empresa_id' => 'Empresa'],
+            'tbody' => $dispositivos,
+            'actions' => [
+                'edit' => 'Editar',
+                'trash' => 'Excluir'
+            ],
+            'tfoot' => ['#', 'descricao' => 'Descrição', 'empresa_id' => 'Empresa'],
+        );
+
+
+        return view('listar', [
+            'title' => 'Dispositivos',
+            'action' => 'Adicionar Novo',
+            'route' => 'dispositivo',
+            'order' => [
+                'orderby' => $orderBy,
+                'order' => $order
+            ],
+            'table' => $table,
+        ]);
+
     }
 
     public function create()
     {
         $empresas = Empresa::all();
-        return view('dispositivo.cadastrar',['empresas' => $empresas]);
+        return view('dispositivo.cadastrar', ['empresas' => $empresas]);
     }
 
     public function store(Request $request)
