@@ -42,6 +42,14 @@ class CreateUsersTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('restrict');
         });
+
+        \App\User::create([
+            'name' => 'Admin',
+            'email' => 'admin@example.com',
+            'tipo' => \App\User::TIPO_ADMIN,
+            'password' => \Illuminate\Support\Facades\Hash::make('123456'),
+            'empresa_id' => 1
+        ]);
     }
 
     /**

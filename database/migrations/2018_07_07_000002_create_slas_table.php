@@ -27,6 +27,8 @@ class CreateSlasTable extends Migration
             $table->string('nome', 191);
             $table->nullableTimestamps();
         });
+
+        \App\Sla::create(['nome' => 'Urgente']);
     }
 
     /**

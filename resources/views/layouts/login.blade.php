@@ -12,16 +12,16 @@
     <title>Sistema HávilaInfo - @yield('titulo')</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- MetisMenu CSS -->
-    <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/metisMenu/3.0.7/metisMenu.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="/css/sistema.css" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link href="/vendor/morrisjs/morris.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
@@ -52,13 +52,13 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="/vendor/metisMenu/metisMenu.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/metisMenu/3.0.7/metisMenu.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="js/sistema.js"></script>

@@ -42,6 +42,15 @@ class CreateEmpresasTable extends Migration
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });
+
+        \App\Empresa::create([
+            'nome' => 'Empresa 1',
+            'cnpj' => '12345678901234',
+            'endereco' => 'Rua 1, 123',
+            'telefone' => '1234567890',
+            'ie' => '1234567890',
+            'sla_id' => 1
+        ]);
     }
 
     /**

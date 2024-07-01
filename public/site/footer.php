@@ -60,12 +60,12 @@
 
 
 <!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- Plugin JavaScript -->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.2.0/jquery.magnific-popup.min.js"></script>
 
 <!-- Contact Form JavaScript -->
 <script src="js/jqBootstrapValidation.js"></script>
